@@ -1,10 +1,11 @@
 
 import { RiUploadCloud2Line } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa6";
+import UserTable from "../../components/UserListsTable/UserTable";
 
 const UserLists = () => {
   return (
-    <div className='w-[1280px] px-[32px] mx-auto mt-2 font-inter'>
+    <div className='w-[1280px] px-[32px] mx-auto mt-[35px] font-inter'>
        <div className='flex justify-between items-center'>
        <div>
         <h3 className='text-[24px] text-[#101828] font-[500]'>Users</h3>
@@ -19,6 +20,7 @@ const UserLists = () => {
                 </button>
         </div>
        </div>
+       <UserTable/>
         </div>
   )
 }
