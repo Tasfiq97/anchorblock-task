@@ -1,16 +1,63 @@
-import React from 'react'
-import { useGetUsersQuery } from '../../features/usersApi'
+import React, { useEffect, useState } from 'react'
+import { useDeleteUserByIdMutation, useGetUsersAllQuery, useGetUsersQuery, useUpdateUserByIdMutation, } from '../../features/usersApi'
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FiEdit2 } from "react-icons/fi";
 import Pagination from '../pagination/Pagination';
-
-
+import { useAlert } from 'react-alert'
 const UserTable = () => {
-  const {data,isLoading,error,isError,isSuccess}=useGetUsersQuery()
+  const [page,setPage]=useState<number>(1)
+    const [totalPage,setTotalPage]=useState<number>(1)
+    const alert = useAlert()
+  const {data, isLoading,error,isError,isSuccess}=useGetUsersQuery(page);
+  const [ updateUserById]=useUpdateUserByIdMutation();
+  const [deleteUserById]=useDeleteUserByIdMutation()
+  
+
+
+
+  useEffect(()=>{
+    setTotalPage(data?.total_pages)
+  },[data])
+ 
+   const handleNextPage=()=>{
+    if(page===data?.total_pages){
+      return
+    }
+    setPage(page+1)
+
+   }
+   const handlePrevPage=()=>{
+    if(page===1){
+      return
+    }
+    setPage(page-1)
+
+   }
+   
+   const handleUpdate=(id) => {
+    updateUserById(id).then(action=>{
+      if(action.data){
+     alert.show("update successful",{type:"success"})
+      }
+    }
+    )
+   }
+   const handleDelete=(id) => {
+    deleteUserById(id).then(action=>{
+      if(action.data===null){
+        alert.show(" api issue",{type:"error"})
+      }
+    //   if(action.data){
+    //  alert.show("deleted successfully",{type:"success"})
+    //   }
+    }
+    )
+   }
 
   return (
-    <div className="max-w-full mx-auto mt-8 font-inter">
-    <table className="w-full border border-[#EAECF0] shadow-table">
+ <div className='overflow-x-auto overflow-y-auto mt-[33px]'>
+     <div className="max-w-full mx-auto  font-inter border border-[#EAECF0] shadow-table rounded-[8px]  ">
+    <table className="w-full ">
       <thead className='bg-[#F9FAFB]'>
         <tr>
          
@@ -39,11 +86,14 @@ const UserTable = () => {
               <p className='text-[14px] font-[400] text-[#667085]'>Brings all your news into one place</p>
             </td>
             <td className='  px-[24px] py-[16px] '>
-              <p>Customer</p>
+              {data.id%2===0?<div className='w-[73px]'>
+                <p className='text-[12px] font-[500] leading-[18px] text-[#027A48] rounded-[16px] px-[8px] py-[2px] bg-[#ECFDF3] '>Customer</p></div>:
+              <div className='w-[66px]'>
+                <p className='text-[12px] font-[500] leading-[18px] text-[#344054] rounded-[16px] px-[8px] py-[2px] bg-[#F2F4F7] '>Churned</p></div>}
             </td>
-            <td className='flex gap-2  px-[24px] py-[16px] '>
-            <RiDeleteBinLine size={20} />
-            <FiEdit2 size={20}/>
+            <td className='flex gap-5  px-[24px] py-[16px] '>
+           <div onClick={()=>handleDelete(data?.id)}> <RiDeleteBinLine  size={20} color={"#667085"} /></div>
+          <div onClick={()=>handleUpdate(data?.id)}>  <FiEdit2 size={20} color={"#667085"}/></div>
             </td>
              
           </tr>)
@@ -52,9 +102,12 @@ const UserTable = () => {
       
 
       </tbody>
-      <Pagination/>
     </table>
+    <div  className='w-full'>
+      <Pagination handleNextPage={handleNextPage} handlePrevPage={handlePrevPage} totalPage={totalPage} page={page} />
+      </div>
   </div>
+ </div>
   )
 }
 
