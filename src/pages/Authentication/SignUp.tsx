@@ -11,7 +11,7 @@ type Inputs = {
     password: string
   }
 const SignUp = () => {
-   
+ 
     const dispatch=useDispatch()
  const alert = useAlert()
  const navigate=useNavigate();
@@ -62,6 +62,7 @@ const SignUp = () => {
   <div className="mt-[10px] h-[96px]">
   <label  className=" text-[#344054] text-[14px] font-[500] leading-5">Password</label>
       <input 
+    
       {...register('password',
        { required: true, maxLength: 30 })} 
        type="password"  

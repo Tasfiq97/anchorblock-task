@@ -7,6 +7,9 @@ import { useAlert } from 'react-alert'
 import { Users } from '../../models/Users.model';
 import { Update } from '../../models/updteUser.model';
 import { Delete } from '../../models/deleteUser.model';
+import { MdOutlineArrowDownward } from "react-icons/md";
+import { FaCheck } from "react-icons/fa";
+
 const UserTable = () => {
   const [page,setPage]=useState<number>(1)
     const [totalPage,setTotalPage]=useState<number>(1)
@@ -60,6 +63,17 @@ const UserTable = () => {
       console.error(error);
     }
   };
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [isCheckedTable, setIsCheckedTable] = useState<boolean>(false);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
+  const handleCheckboxChangeTable = () => {  
+
+       setIsCheckedTable(!isCheckedTable);
+     
+  };
 
   return (
  <div className='overflow-x-auto overflow-y-auto mt-[33px]'>
@@ -69,7 +83,28 @@ const UserTable = () => {
         <tr>
          
           
-          <th className="border-b border-[#EAECF0] text-left text-[12px] font-[500] text-[#667085] px-[24px] py-[12px] ">  <input type="checkbox" /> <span className='text-left text-[12px] font-[500] text-[#667085] ml-[12px]'>User Info</span></th>
+          <th className="border-b flex items-center border-[#EAECF0] text-left text-[12px] font-[500] text-[#667085] px-[24px] py-[12px] ">  
+          <label className="flex items-center text-[#000] cursor-pointer  h-6" htmlFor="custom-checkbox">
+      <input
+        id="custom-checkbox"
+        type="checkbox"
+        className="hidden"
+        checked={isChecked}
+        onChange={handleCheckboxChange}
+      />
+      {isChecked ? (
+        <span className="text-2xl h-4 w-4 relative   border border-[#7F56D9] bg-[#F9F5FF] rounded-[6px] top-0 ">
+          <span className=' absolute top-[-10px] left-[2px] text-[#7F56D9]'>-</span>
+        </span>
+      ) : (
+        <span className="h-4 w-4 border border-[#D0D5DD] bg-[#fff] rounded-[6px]" />
+      )}
+    </label>
+          <span className='text-left text-[12px] font-[500] text-[#667085] ml-[12px]'>User Info</span>
+         <div className='ml-[4px]'>
+         <MdOutlineArrowDownward/>
+         </div>
+          </th>
           <th className="border-b border-[#EAECF0]  text-left text-[12px] font-[500] text-[#667085] px-[24px] py-[12px] ">About</th>
           <th className="border-b border-[#EAECF0] text-left text-[12px] font-[500] text-[#667085] px-[24px] py-[12px]">Status</th>
           <th className="border-b border-[#EAECF0] text-left text-[12px] font-[500] text-[#667085] px-[24px] py-[12px]"> </th>
@@ -81,7 +116,23 @@ const UserTable = () => {
           data?.data.map(data=><tr className='border border-[#EAECF0]'  key={data.id}>
          
             <td className='flex items-center justify-start  px-[24px] py-[16px] '>
-            <input type="checkbox" className='mr-[12px] accent-[#F9F5FF] border border-[#7F56D9]' />
+            {/* <input type="checkbox" className='mr-[12px]  border text-[#eefa] focus:ring-[#000] border-[#fff]/90 rounded' /> */}
+            <label className="flex items-center mr-[12px] text-[#000] cursor-pointer  h-6" htmlFor="custom-checkbox2">
+      <input
+        id="custom-checkbox2"
+        type="checkbox"
+        className="hidden"
+        checked={isCheckedTable}
+        onChange={handleCheckboxChangeTable}
+      />
+      {isCheckedTable ? (
+        <span className="text-2xl h-4 w-4 relative   border border-[#7F56D9] bg-[#F9F5FF] rounded-[6px] top-0 ">
+          <span className=' absolute top-[4px] left-[3px] text-[#7F56D9]'><FaCheck size={8}/></span>
+        </span>
+      ) : (
+        <span className="h-4 w-4 border border-[#D0D5DD] bg-[#fff] rounded-[6px]" />
+      )}
+    </label>
             <img className='w-[40px] h-[40px] rounded-[200px] mr-[12px]' src={data.avatar} alt="" /> 
 <div>
 <p className='text-[14px] font-[500] text-[#101828]'>{data.first_name+" "+ data.last_name}</p> 
