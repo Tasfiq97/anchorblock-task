@@ -39,7 +39,7 @@ const UserTable = () => {
    
    const handleUpdate=(id:number) => {
     updateUserById(id).then(action=>{
-      if(action.data){
+      if(action?.data ){
       
      alert.show("update successful at " +action?.data?.updatedAt,{type:"success"})
       }

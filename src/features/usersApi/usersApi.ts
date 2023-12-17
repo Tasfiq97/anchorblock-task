@@ -12,7 +12,7 @@ import { apiSlice } from "../apiSlice/apiSlice";
             }),
             
           }),
-        updateUserById: builder.mutation<Update[] , number >({
+        updateUserById: builder.mutation<Update , number >({
             query: (id) => ({  
               url:`/users/${id}`,
               method:"PUT",

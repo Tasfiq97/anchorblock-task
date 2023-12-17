@@ -5,6 +5,7 @@ import SignUp from "../pages/Authentication/SignUp";
 import LayoutDashBoard from "../pages/Layout/LayoutDashboard/LayoutDashBoard";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import UserLists from "../pages/userList/UserLists";
+import PrivateRoute from "../utils/PrivateRoute";
 
 
 
@@ -29,15 +30,24 @@ export const router = createBrowserRouter([
     },
     {
         path:"dashboard",
-        element: <LayoutDashBoard></LayoutDashBoard>,
+        element: (<PrivateRoute><LayoutDashBoard></LayoutDashBoard></PrivateRoute>),
         children:[
             {
                 path:"home",
-                element:<Dashboard/>
+                element:(
+                  <PrivateRoute>
+
+                    <Dashboard/>
+                  </PrivateRoute>
+                )
             },
             {
                 path:"user-lists",
-                element:<UserLists/>
+                element:(
+                  <PrivateRoute>
+                    <UserLists/>
+                  </PrivateRoute>
+                )
             }
         ]
     }
