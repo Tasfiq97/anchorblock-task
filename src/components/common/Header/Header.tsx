@@ -1,16 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {  NavLink, useNavigate } from 'react-router-dom';
+import {  NavLink,  } from 'react-router-dom';
 import { IoMdSearch } from "react-icons/io";
 import { TbSettings } from "react-icons/tb";
 import { GoBell } from "react-icons/go";
 import NavLogo from '../../../assets/logo/NavLogo';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../../features/usersApi/authSlice';
-import { useAlert } from 'react-alert'
+import Dropdown from '../../dropdown/Dropdown';
 const Header = () => {
-  const dispatch=useDispatch()
-  const alert=useAlert()
-  const navigate=useNavigate()
     const Links =[
         {name:"Home",link:"dashboard"},
         {name:"Users",link:"user-lists"},
@@ -18,16 +13,7 @@ const Header = () => {
         {name:"Tasks",link:"*"},
         {name:"Reporting",link:"*"},
       ];
-    
-      const handleLogout=()=>{
-        dispatch<any>(logout()).then(action=>{
-          if(action.payload){
-            localStorage.clear();
-            alert.show("logout successful",{type:"success"})
-            navigate("/")
-          }
-        })
-      }
+  
      
   return (
     <div className=' bg-primary text-[#fff] font-inter'>
@@ -41,7 +27,7 @@ const Header = () => {
     <ul className='flex justify-between items-center font-inter w-[40%]'>
        {
         Links.map((links)=>
-        // <Link key={links.link} to={links.link}><p className='font-[500] leading-6'>{links.name}</p></Link>
+        
         <NavLink
         key={links.link}
         to={links.link}
@@ -66,7 +52,7 @@ const Header = () => {
   <GoBell  size={20}/>
  </div>
  <div>
- <button onClick={handleLogout}>logout</button>
+ <Dropdown/>
  </div>
     </div>
     </div>

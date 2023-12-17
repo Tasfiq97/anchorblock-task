@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import { signUp } from '../../features/usersApi/authSlice';
 import { useAlert } from 'react-alert'
+
 type Inputs = {
     email: string
     password: string
@@ -20,7 +21,7 @@ const SignUp = () => {
           dispatch<any>(signUp({ email: data.email, password: data.password })).then((action)=>{
             if(action.payload!==undefined){
                 alert.show("signup successful",{type:"success"})
-                navigate("dashboard")
+                navigate("/dashboard")
             }else{
                 
                 alert.show(action.error.message,{type:"error"})
