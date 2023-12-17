@@ -1,7 +1,7 @@
- import { Users } from "../models/Users.model";
-import { Delete } from "../models/deleteUser.model";
-import { Update } from "../models/updteUser.model";
-import { apiSlice } from "./apiSlice/apiSlice";
+ import { Users } from "../../models/Users.model";
+import { Delete } from "../../models/deleteUser.model";
+import { Update } from "../../models/updteUser.model";
+import { apiSlice } from "../apiSlice/apiSlice";
 
  const usersApi=apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -19,7 +19,7 @@ import { apiSlice } from "./apiSlice/apiSlice";
             }),
             
           }),
-        deleteUserById: builder.mutation<Delete[] , number >({
+        deleteUserById: builder.mutation<Delete , number >({
             query: (id) => ({  
               url:`users/${id}`,
               method:"DELETE",  

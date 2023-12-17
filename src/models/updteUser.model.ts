@@ -1,3 +1,3 @@
- export interface Update{
-    updatedAt:string
+ export interface Update{ 
+      updatedAt:string
   }

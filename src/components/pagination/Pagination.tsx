@@ -1,9 +1,9 @@
-import React from 'react'
-import PaginationBtn from '../common/Header/PaginationBtn/PaginationBtn'
 
 interface Props{
 totalPage:number,
-page:number
+page:number,
+handlePrevPage,
+handleNextPage
 }
 const Pagination = ({totalPage,page,handlePrevPage,handleNextPage}:Props) => {
   return (

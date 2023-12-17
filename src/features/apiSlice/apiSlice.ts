@@ -5,6 +5,6 @@ export const apiSlice = createApi({
       baseUrl: "https://reqres.in/api",
     }),
  
-    endpoints: (builder) => ({}),
+    endpoints: () => ({}),
   });
  

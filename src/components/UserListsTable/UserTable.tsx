@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import { useDeleteUserByIdMutation, useGetUsersAllQuery, useGetUsersQuery, useUpdateUserByIdMutation, } from '../../features/usersApi'
+import  { useEffect, useState } from 'react'
+import { useDeleteUserByIdMutation,  useGetUsersQuery, useUpdateUserByIdMutation, } from '../../features/usersApi/usersApi'
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FiEdit2 } from "react-icons/fi";
 import Pagination from '../pagination/Pagination';
 import { useAlert } from 'react-alert'
+import { Users } from '../../models/Users.model';
+import { Update } from '../../models/updteUser.model';
+import { Delete } from '../../models/deleteUser.model';
 const UserTable = () => {
   const [page,setPage]=useState<number>(1)
     const [totalPage,setTotalPage]=useState<number>(1)
     const alert = useAlert()
-  const {data, isLoading,error,isError,isSuccess}=useGetUsersQuery(page);
-  const [ updateUserById]=useUpdateUserByIdMutation();
-  const [deleteUserById]=useDeleteUserByIdMutation()
-  
+  const   {data}= useGetUsersQuery<Users>(page);
 
+  const [ updateUserById]=useUpdateUserByIdMutation<Update>();
+  const [deleteUserById]=useDeleteUserByIdMutation<Delete>();
+  
 
 
   useEffect(()=>{
@@ -34,10 +37,11 @@ const UserTable = () => {
 
    }
    
-   const handleUpdate=(id) => {
+   const handleUpdate=(id:number) => {
     updateUserById(id).then(action=>{
       if(action.data){
-     alert.show("update successful",{type:"success"})
+      
+     alert.show("update successful at " +action?.data?.updatedAt,{type:"success"})
       }
     }
     )
@@ -71,7 +75,7 @@ const UserTable = () => {
       <tbody>
         
          {
-          data?.data?.map(data=><tr className='border border-[#EAECF0]'  key={data.id}>
+          data?.data.map(data=><tr className='border border-[#EAECF0]'  key={data.id}>
          
             <td className='flex items-center justify-start  px-[24px] py-[16px] '>
             <input type="checkbox" className='mr-[12px] accent-[#F9F5FF] border border-[#7F56D9]' />
@@ -92,8 +96,8 @@ const UserTable = () => {
                 <p className='text-[12px] font-[500] leading-[18px] text-[#344054] rounded-[16px] px-[8px] py-[2px] bg-[#F2F4F7] '>Churned</p></div>}
             </td>
             <td className='flex gap-5  px-[24px] py-[16px] '>
-           <div onClick={()=>handleDelete(data?.id)}> <RiDeleteBinLine  size={20} color={"#667085"} /></div>
-          <div onClick={()=>handleUpdate(data?.id)}>  <FiEdit2 size={20} color={"#667085"}/></div>
+           <div onClick={()=>handleDelete(data?.id)} className='cursor-pointer'> <RiDeleteBinLine  size={20} color={"#667085"} /></div>
+          <div onClick={()=>handleUpdate(data?.id)} className='cursor-pointer'>  <FiEdit2 size={20} color={"#667085"}/></div>
             </td>
              
           </tr>)

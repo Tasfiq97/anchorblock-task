@@ -1,6 +1,4 @@
-import React, { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom';
-import NavLinks from './NavLinks';
+import {  NavLink } from 'react-router-dom';
 import { IoMdSearch } from "react-icons/io";
 import { TbSettings } from "react-icons/tb";
 import { GoBell } from "react-icons/go";

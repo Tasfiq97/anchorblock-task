@@ -1,3 +1,3 @@
 export interface Delete{
-    updatedAt:string
+data:null
   }

@@ -7,11 +7,9 @@ import { store } from './app/store.ts'
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
 const options = {
-  // you can also just use 'bottom center'
-  position: positions.BOTTOM_CENTER,
-  timeout: 2000,
-  offset: '30px',
-  // you can also just use 'scale'
+  position: positions.BOTTOM_RIGHT,
+  timeout: 4000,
+  offset: '50px',
   transition: transitions.SCALE
 }
 ReactDOM.createRoot(document.getElementById('root')!).render(
