@@ -6,8 +6,7 @@ import { Provider } from 'react-redux'
 import { store } from './app/store.ts'
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
-import { RouterProvider } from 'react-router-dom'
-import { router } from './routers/router.tsx'
+
 const options = {
   position: positions.BOTTOM_RIGHT,
   timeout: 4000,

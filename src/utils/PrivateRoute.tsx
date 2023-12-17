@@ -19,17 +19,20 @@ const PrivateRoute = ({children}:PropsWithChildren) => {
     const {
         isLoading,
         user: {token},
-    } = useSelector((state:AuthState) => state.auth);
-    const storedUser = localStorage.getItem("user");
+      } = useSelector((state:AuthState) => state.auth);
+      const storedUser = localStorage.getItem("user");
+  
     
       const jsonStore=(JSON.parse(storedUser as string));
 
       if (isLoading) {
         return <>loading....</>;
       }
-      if (!isLoading && !jsonStore?.token) {
-        return <Navigate to="/signup" state={{ path: pathname }} />;
+      if ( !jsonStore?.token) {
+      if (!isLoading && !token) {
+        return <Navigate to="/" state={{ path: pathname }} />;
       }
+    }
   return children;
 }
 

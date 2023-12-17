@@ -16,8 +16,6 @@ const UserTable = () => {
   const [ updateUserById]=useUpdateUserByIdMutation<Update>();
   const [deleteUserById]=useDeleteUserByIdMutation<Delete>();
   
-
-
   useEffect(()=>{
     setTotalPage(data?.total_pages)
   },[data])
@@ -37,26 +35,31 @@ const UserTable = () => {
 
    }
    
-   const handleUpdate=(id:number) => {
-    updateUserById(id).then(action=>{
-      if(action?.data ){
+  const handleUpdate = async (id: number) => {
+    try {
+      const action = await updateUserById(id);
       
-     alert.show("update successful at " +action?.data?.updatedAt,{type:"success"})
+      if ('data' in action) {
+        alert.show("Update successful at " + action.data.updatedAt, { type: "success" });
       }
+    } catch (error) {
+      console.error(error);
     }
-    )
-   }
-   const handleDelete=(id) => {
-    deleteUserById(id).then(action=>{
-      if(action.data===null){
-        alert.show(" api issue",{type:"error"})
-      }
-    //   if(action.data){
-    //  alert.show("deleted successfully",{type:"success"})
-    //   }
+  };
+
+ 
+  const handleDelete = async (id: number) => {
+    try {
+      const action = await deleteUserById(id);
+      
+      if('data' in action){
+              alert.show("Cannot be deleted",{type:"error"})
+            }
+    } catch (error) {
+    
+      console.error(error);
     }
-    )
-   }
+  };
 
   return (
  <div className='overflow-x-auto overflow-y-auto mt-[33px]'>

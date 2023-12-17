@@ -49,6 +49,8 @@ export const signUp = createAsyncThunk(
       
     }
   );
+
+
 export const signIn = createAsyncThunk(
     "auth/signIn",
     async ({ email,password }: { email: string; password: string }) => {
@@ -64,10 +66,22 @@ export const signIn = createAsyncThunk(
           } else {
             throw new Error("An unexpected error occurred");
           }
-     }
-       
-    // console.log(response);
-      
+     } 
+    }
+  );
+export const logout = createAsyncThunk(
+    "auth/logout",
+    async () => {
+     try { 
+      const response=await axios.post("https://reqres.in/api/logout")
+     return response.data; 
+     } catch (error) {
+        if (hasResponseProperty(error)) {
+            throw new Error(error.response?.data?.error || "An error occurred");
+          } else {
+            throw new Error("An unexpected error occurred");
+          }
+     } 
     }
   );
 
@@ -79,11 +93,8 @@ const authSlice = createSlice({
     reducers: {
         restoreUser: (state, action) => {
             state.user = action.payload;
-     
-          },
-        
-      
-    },
+              },   
+  },
     extraReducers: (builder) => {
       builder
       .addCase(signUp.pending, (state) => {
@@ -116,6 +127,23 @@ const authSlice = createSlice({
           localStorage.setItem("user", JSON.stringify(action.payload));
         })
         .addCase(signIn.rejected, (state, action) => {       
+          state.isLoading = false;
+          state.isError = true;
+          state.error = action.payload as string;
+        })
+      .addCase(logout.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.error = "";
+      })
+        .addCase(logout.fulfilled, (state ) => {
+          state.isLoading = false;
+          state.isError = false;
+          state.error = "";
+          state.user={id:0,token:""}
+       
+        })
+        .addCase(logout.rejected, (state, action) => {       
           state.isLoading = false;
           state.isError = true;
           state.error = action.payload as string;

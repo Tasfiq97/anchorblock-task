@@ -1,18 +1,34 @@
-import {  NavLink } from 'react-router-dom';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {  NavLink, useNavigate } from 'react-router-dom';
 import { IoMdSearch } from "react-icons/io";
 import { TbSettings } from "react-icons/tb";
 import { GoBell } from "react-icons/go";
 import NavLogo from '../../../assets/logo/NavLogo';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../features/usersApi/authSlice';
+import { useAlert } from 'react-alert'
 const Header = () => {
+  const dispatch=useDispatch()
+  const alert=useAlert()
+  const navigate=useNavigate()
     const Links =[
-        {name:"Home",link:"home"},
+        {name:"Home",link:"dashboard"},
         {name:"Users",link:"user-lists"},
-        {name:"Projects",link:"/"},
-        {name:"Tasks",link:"/"},
-        {name:"Reporting",link:"/"},
+        {name:"Projects",link:"*"},
+        {name:"Tasks",link:"*"},
+        {name:"Reporting",link:"*"},
       ];
     
-    //   const [open,setOpen]=useState<boolean>(false);
+      const handleLogout=()=>{
+        dispatch<any>(logout()).then(action=>{
+          if(action.payload){
+            localStorage.clear();
+            alert.show("logout successful",{type:"success"})
+            navigate("/")
+          }
+        })
+      }
+     
   return (
     <div className=' bg-primary text-[#fff] font-inter'>
     <div className='flex w-[1280px] h-[72px] items-center px-[32px] bg-white  mx-auto'>
@@ -50,7 +66,7 @@ const Header = () => {
   <GoBell  size={20}/>
  </div>
  <div>
-  <IoMdSearch size={20}/>
+ <button onClick={handleLogout}>logout</button>
  </div>
     </div>
     </div>

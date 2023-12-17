@@ -22,18 +22,15 @@ export const router = createBrowserRouter([
           path: "/signup",
           element: <SignUp />,
         },
-        // {
-        //   path: "/generatePdf",
-        //   element: <GeneratePdf />,
-        // },
+       
       ],
     },
     {
-        path:"dashboard",
+        path:"/",
         element: (<PrivateRoute><LayoutDashBoard></LayoutDashBoard></PrivateRoute>),
         children:[
             {
-                path:"home",
+                path:"dashboard",
                 element:(
                   <PrivateRoute>
 

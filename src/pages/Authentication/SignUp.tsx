@@ -20,7 +20,7 @@ const SignUp = () => {
           dispatch<any>(signUp({ email: data.email, password: data.password })).then((action)=>{
             if(action.payload!==undefined){
                 alert.show("signup successful",{type:"success"})
-                navigate("/dashboard/home")
+                navigate("dashboard")
             }else{
                 
                 alert.show(action.error.message,{type:"error"})

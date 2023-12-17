@@ -9,7 +9,6 @@ import { router } from './routers/router';
 function App() {
 
   const dispatch = useDispatch();
-  // const navigate=useNavigate();
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
