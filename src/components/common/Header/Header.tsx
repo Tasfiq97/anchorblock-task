@@ -9,9 +9,7 @@ const Header = () => {
     const Links =[
         {name:"Home",link:"dashboard"},
         {name:"Users",link:"user-lists"},
-        {name:"Projects",link:"*"},
-        {name:"Tasks",link:"*"},
-        {name:"Reporting",link:"*"},
+        {name:"Projects",link:"no-page-found"},
       ];
     const navigate=useNavigate()
      
@@ -23,7 +21,7 @@ const Header = () => {
      <NavLogo/>
       <h3 className='text-[20px] font-[700] ml-[12px]'>Stack</h3>
     </div>
-    <div className='flex justify-between w-[85%]'>
+    <div className='flex justify-between w-[88%]'>
     <ul className='flex justify-between items-center font-inter w-[40%]'>
        {
         Links.map((links)=>
@@ -39,6 +37,8 @@ const Header = () => {
 </NavLink>
         )
        }
+       <p className=' cursor-pointer font-[500] leading-6 px-[12px] py-[8px] rounded-md hover:bg-[#7F56D9] transition-all ease-out 0.3s'>Tasks</p>
+       <p className='cursor-pointer font-[500] leading-6 px-[12px] py-[8px] rounded-md hover:bg-[#7F56D9] transition-all ease-out 0.3s'>Reporting</p>
     </ul>
     <div className='flex items-center justify-end w-[40%] '>
  <div className='p-[10px]'>

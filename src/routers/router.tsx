@@ -6,6 +6,7 @@ import LayoutDashBoard from "../pages/Layout/LayoutDashboard/LayoutDashBoard";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import UserLists from "../pages/userList/UserLists";
 import PrivateRoute from "../utils/PrivateRoute";
+import Nopage from "../pages/Nopage /Nopage";
 
 
 
@@ -44,6 +45,12 @@ export const router = createBrowserRouter([
                   <PrivateRoute>
                     <UserLists/>
                   </PrivateRoute>
+                )
+            },
+            {
+                path:"no-page-found",
+                element:(<Nopage/>
+    
                 )
             }
         ]

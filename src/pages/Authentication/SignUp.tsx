@@ -117,7 +117,7 @@ const SignUp = () => {
   <div className={passStrong>=14?'h-[4px] w-[44px] bg-[#2E8B57] rounded-[2px]':"h-[4px] w-[44px] bg-[#F3F3F3] rounded-[2px]"}></div>
   </div>
       <div className="mt-[17px]">
-    <button type="submit" className="bg-primary w-full h-[44px]"><i className="fa-solid fa-right-to-bracket"></i>Sign In</button>
+    <button type="submit" className="bg-primary w-full h-[44px]"><i className="fa-solid fa-right-to-bracket"></i>Sign Up</button>
 </div>
     </form>
   <div className="mt-[24px] text-[#B0B7C3]">
