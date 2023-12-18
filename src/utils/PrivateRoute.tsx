@@ -2,6 +2,7 @@
 import { PropsWithChildren } from "react"
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom"
+import Loading from "../components/Loading/Loading";
 interface AuthState {
     [x: string]: any;
     user : {
@@ -26,7 +27,9 @@ const PrivateRoute = ({children}:PropsWithChildren) => {
       const jsonStore=(JSON.parse(storedUser as string));
 
       if (isLoading) {
-        return <>loading....</>;
+        return <>
+        <Loading/>
+        </>
       }
       if ( !jsonStore?.token) {
       if (!isLoading && !token) {

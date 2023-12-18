@@ -15,10 +15,12 @@ const UserTable = () => {
     const [totalPage,setTotalPage]=useState<number>(1)
     const alert = useAlert()
   const   {data}= useGetUsersQuery<Users>(page);
-
   const [ updateUserById]=useUpdateUserByIdMutation<Update>();
   const [deleteUserById]=useDeleteUserByIdMutation<Delete>();
-  
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [isCheckedTable, setIsCheckedTable] = useState<boolean>(false);
+
+
   useEffect(()=>{
     setTotalPage(data?.total_pages)
   },[data])
@@ -30,6 +32,8 @@ const UserTable = () => {
     setPage(page+1)
 
    }
+
+
    const handlePrevPage=()=>{
     if(page===1){
       return
@@ -38,12 +42,22 @@ const UserTable = () => {
 
    }
    
+   
   const handleUpdate = async (id: number) => {
     try {
       const action = await updateUserById(id);
       
       if ('data' in action) {
-        alert.show("Update successful at " + action.data.updatedAt, { type: "success" });
+        const updatedAt = new Date(action.data.updatedAt);
+        const standardTime = updatedAt.toLocaleString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: 'numeric',
+      
+        });
+
+        alert.show("Update successful at " + standardTime, { type: "success" });
       }
     } catch (error) {
       console.error(error);
@@ -56,23 +70,21 @@ const UserTable = () => {
       const action = await deleteUserById(id);
       
       if('data' in action){
-              alert.show("Cannot be deleted",{type:"error"})
+              alert.show("deleted successfully",{type:"success"})
             }
     } catch (error) {
     
       console.error(error);
     }
   };
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-  const [isCheckedTable, setIsCheckedTable] = useState<boolean>(false);
+
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
-  const handleCheckboxChangeTable = () => {  
 
-       setIsCheckedTable(!isCheckedTable);
-     
+  const handleCheckboxChangeTable = () => {  
+  setIsCheckedTable(!isCheckedTable);     
   };
 
   return (
@@ -116,7 +128,6 @@ const UserTable = () => {
           data?.data.map(data=><tr className='border border-[#EAECF0]'  key={data.id}>
          
             <td className='flex items-center justify-start  px-[24px] py-[16px] '>
-            {/* <input type="checkbox" className='mr-[12px]  border text-[#eefa] focus:ring-[#000] border-[#fff]/90 rounded' /> */}
             <label className="flex items-center mr-[12px] text-[#000] cursor-pointer  h-6" htmlFor="custom-checkbox2">
       <input
         id="custom-checkbox2"

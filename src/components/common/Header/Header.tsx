@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {  NavLink,  } from 'react-router-dom';
+import {  NavLink, useNavigate,  } from 'react-router-dom';
 import { IoMdSearch } from "react-icons/io";
 import { TbSettings } from "react-icons/tb";
 import { GoBell } from "react-icons/go";
@@ -13,12 +13,12 @@ const Header = () => {
         {name:"Tasks",link:"*"},
         {name:"Reporting",link:"*"},
       ];
-  
+    const navigate=useNavigate()
      
   return (
     <div className=' bg-primary text-[#fff] font-inter'>
     <div className='flex w-[1280px] h-[72px] items-center px-[32px] bg-white  mx-auto'>
-    <div className='font-bold font-inter text-2xl cursor-pointer flex items-center  
+    <div onClick={ ()=>navigate("/dashboard")} className='font-bold font-inter text-2xl cursor-pointer flex items-center  
     text-gray-800 w-[15%]'>
      <NavLogo/>
       <h3 className='text-[20px] font-[700] ml-[12px]'>Stack</h3>
